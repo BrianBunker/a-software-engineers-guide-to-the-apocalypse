@@ -394,7 +394,60 @@
       line-height: 1.7;
     }
 
-    /* ---- FOOTER ---- */
+    /* ---- SUGGESTED READING ---- */
+    .reading-section {
+      background: var(--paper);
+      padding: 72px 40px;
+      border-top: 1px solid var(--rule);
+    }
+
+    .reading-list {
+      margin-top: 40px;
+      display: flex;
+      flex-direction: column;
+      gap: 0;
+      max-width: 680px;
+    }
+
+    .reading-item {
+      padding: 24px 0;
+      border-bottom: 1px solid var(--rule);
+    }
+
+    .reading-item:first-child {
+      border-top: 1px solid var(--rule);
+    }
+
+    .reading-item a {
+      font-family: 'DM Serif Display', serif;
+      font-size: 18px;
+      color: var(--ink);
+      text-decoration: none;
+      display: block;
+      margin-bottom: 6px;
+      transition: color 0.15s;
+    }
+
+    .reading-item a:hover {
+      color: var(--accent);
+    }
+
+    .reading-source {
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 10px;
+      font-weight: 600;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 8px;
+    }
+
+    .reading-item p {
+      font-size: 14.5px;
+      color: var(--mid);
+      line-height: 1.65;
+      margin-bottom: 0;
+    }
     footer {
       background: var(--ink);
       padding: 32px 40px;
@@ -663,7 +716,42 @@
     </p>
   </div>
 
-  <footer>
+  <!-- SUGGESTED READING -->
+  <section class="reading-section">
+    <div class="container">
+      <div class="section-label">Suggested Reading</div>
+      <h2>If This Post Found You</h2>
+      <div class="reading-list">
+
+        <div class="reading-item">
+          <div class="reading-source">Matt Shumer · LinkedIn</div>
+          <a href="https://www.linkedin.com/pulse/something-big-happening-matt-shumer-so5he" target="_blank">Something Big Is Happening</a>
+          <p>The viral essay arguing that the gap between what AI can do today and what most people believe it can do has become dangerously wide — and that those working with these tools daily know something the rest of the world doesn't yet.</p>
+        </div>
+
+        <div class="reading-item">
+          <div class="reading-source">Citrini Research · Substack</div>
+          <a href="https://www.citriniresearch.com/p/2028gic" target="_blank">The 2028 Global Intelligence Crisis</a>
+          <p>A macro thought exercise written as a memo from June 2028, modeling a scenario in which AI-driven white-collar displacement spirals into a structural economic crisis — a feedback loop of layoffs, margin pressure, and collapsing consumer demand that has no natural brake.</p>
+        </div>
+
+        <div class="reading-item">
+          <div class="reading-source">Steve Yegge · Medium</div>
+          <a href="https://steve-yegge.medium.com/the-ai-vampire-eda6e4f07163" target="_blank">The AI Vampire</a>
+          <p>A candid warning from a veteran engineer about the hidden cost of 10x AI productivity: the value flows to employers while developers burn out, and the culture of early adopters shouting from the rooftops is setting expectations nobody can sustainably meet.</p>
+        </div>
+
+        <div class="reading-item">
+          <div class="reading-source">Harrison Chase · X</div>
+          <a href="https://x.com/hwchase17/status/2031051115169808685" target="_blank">On What Agents Actually Do in Production</a>
+          <p>The LangChain founder on what it really means to deploy AI agents at scale — and why you don't fully understand what your agent will do until it's already in front of real users.</p>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
     A Software Engineer's Guide to the Apocalypse &nbsp;·&nbsp; March 2026
   </footer>
 
