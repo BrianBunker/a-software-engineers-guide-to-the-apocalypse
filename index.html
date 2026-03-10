@@ -1,0 +1,674 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>A Software Engineer's Guide to the Apocalypse</title>
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Serif+Display:ital@0;1&family=IBM+Plex+Mono:wght@400;600&family=Instrument+Sans:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --ink: #0f0e0c;
+      --paper: #f5f0e8;
+      --accent: #c8390a;
+      --mid: #6b6560;
+      --light: #e8e2d8;
+      --rule: #d4cec4;
+    }
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    body {
+      background: var(--ink);
+      font-family: 'Instrument Sans', sans-serif;
+      color: var(--ink);
+      min-height: 100vh;
+    }
+
+    /* Noise texture overlay */
+    body::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E");
+      pointer-events: none;
+      z-index: 100;
+      opacity: 0.4;
+    }
+
+    /* ---- HERO ---- */
+    .hero {
+      background: var(--paper);
+      padding: 80px 40px 60px;
+      position: relative;
+      overflow: hidden;
+      border-bottom: 3px solid var(--ink);
+    }
+
+    .hero::after {
+      content: '';
+      position: absolute;
+      bottom: -2px;
+      left: 0;
+      right: 0;
+      height: 6px;
+      background: repeating-linear-gradient(90deg, var(--accent) 0, var(--accent) 20px, transparent 20px, transparent 28px);
+    }
+
+    .eyebrow {
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 20px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .eyebrow::before {
+      content: '';
+      display: block;
+      width: 32px;
+      height: 2px;
+      background: var(--accent);
+    }
+
+    .hero-title {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: clamp(56px, 10vw, 112px);
+      line-height: 0.92;
+      letter-spacing: -0.01em;
+      color: var(--ink);
+      max-width: 900px;
+      margin-bottom: 12px;
+    }
+
+    .hero-title span {
+      color: var(--accent);
+      display: block;
+    }
+
+    .hero-subtitle {
+      font-family: 'DM Serif Display', serif;
+      font-style: italic;
+      font-size: 22px;
+      color: var(--mid);
+      margin-top: 24px;
+      max-width: 640px;
+      line-height: 1.5;
+    }
+
+    .hero-meta {
+      margin-top: 40px;
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 11px;
+      color: var(--mid);
+      letter-spacing: 0.1em;
+      display: flex;
+      gap: 32px;
+      flex-wrap: wrap;
+    }
+
+    /* ---- LAYOUT ---- */
+    .container {
+      max-width: 860px;
+      margin: 0 auto;
+      padding: 0 40px;
+    }
+
+    /* ---- SECTIONS ---- */
+    .section {
+      background: var(--paper);
+      padding: 72px 40px;
+      border-bottom: 1px solid var(--rule);
+    }
+
+    .section:nth-child(even) {
+      background: #f9f5ef;
+    }
+
+    .section-label {
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 10px;
+      font-weight: 600;
+      letter-spacing: 0.25em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 28px;
+    }
+
+    h2 {
+      font-family: 'DM Serif Display', serif;
+      font-size: clamp(30px, 4vw, 44px);
+      line-height: 1.15;
+      color: var(--ink);
+      margin-bottom: 28px;
+    }
+
+    p {
+      font-size: 17px;
+      line-height: 1.75;
+      color: #2a2724;
+      margin-bottom: 20px;
+      max-width: 680px;
+    }
+
+    p:last-child { margin-bottom: 0; }
+
+    /* ---- PULL QUOTE ---- */
+    .pull-quote {
+      background: var(--ink);
+      color: var(--paper);
+      padding: 72px 40px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .pull-quote::before {
+      content: '"';
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 280px;
+      line-height: 1;
+      color: rgba(255,255,255,0.05);
+      position: absolute;
+      top: -20px;
+      left: 20px;
+      pointer-events: none;
+    }
+
+    .pull-quote blockquote {
+      font-family: 'DM Serif Display', serif;
+      font-size: clamp(24px, 3.5vw, 38px);
+      line-height: 1.3;
+      color: var(--paper);
+      max-width: 740px;
+      margin: 0 auto;
+      position: relative;
+      z-index: 1;
+    }
+
+    .pull-quote cite {
+      display: block;
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 11px;
+      font-style: normal;
+      letter-spacing: 0.15em;
+      color: var(--accent);
+      margin-top: 24px;
+    }
+
+    /* ---- HORIZONS GRID ---- */
+    .horizons-section {
+      background: var(--paper);
+      padding: 72px 40px;
+    }
+
+    .horizons-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+      gap: 0;
+      margin-top: 48px;
+      border: 2px solid var(--ink);
+    }
+
+    .horizon-card {
+      padding: 32px 28px;
+      border-right: 1px solid var(--ink);
+      border-bottom: 1px solid var(--ink);
+      position: relative;
+      transition: background 0.2s;
+    }
+
+    .horizon-card:hover {
+      background: var(--light);
+    }
+
+    .horizon-card.current {
+      background: var(--ink);
+      color: var(--paper);
+    }
+
+    .horizon-card.current .horizon-num {
+      color: var(--accent);
+    }
+
+    .horizon-card.current .horizon-title {
+      color: var(--paper);
+    }
+
+    .horizon-card.current p {
+      color: rgba(245,240,232,0.75);
+    }
+
+    .horizon-card.future {
+      background: #f0ece4;
+    }
+
+    .horizon-card.future .horizon-title,
+    .horizon-card.future p {
+      opacity: 0.5;
+    }
+
+    .horizon-num {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 13px;
+      letter-spacing: 0.15em;
+      color: var(--accent);
+      margin-bottom: 10px;
+    }
+
+    .horizon-badge {
+      display: inline-block;
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 9px;
+      font-weight: 600;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      background: var(--accent);
+      color: white;
+      padding: 3px 8px;
+      margin-bottom: 10px;
+    }
+
+    .horizon-title {
+      font-family: 'DM Serif Display', serif;
+      font-size: 20px;
+      color: var(--ink);
+      margin-bottom: 14px;
+      line-height: 1.2;
+    }
+
+    .horizon-card p {
+      font-size: 13.5px;
+      line-height: 1.65;
+      color: var(--mid);
+      margin-bottom: 0;
+    }
+
+    .horizon-tasks {
+      list-style: none;
+      margin-top: 12px;
+    }
+
+    .horizon-tasks li {
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 12px;
+      color: inherit;
+      padding: 5px 0;
+      border-top: 1px solid rgba(0,0,0,0.08);
+      display: flex;
+      gap: 8px;
+      align-items: flex-start;
+      line-height: 1.5;
+    }
+
+    .horizon-card.current .horizon-tasks li {
+      border-top-color: rgba(255,255,255,0.1);
+      color: rgba(245,240,232,0.8);
+    }
+
+    .horizon-tasks li::before {
+      content: '→';
+      color: var(--accent);
+      flex-shrink: 0;
+      font-size: 11px;
+      margin-top: 1px;
+    }
+
+    /* ---- WORKSHOP vs FACTORY ---- */
+    .split-section {
+      background: var(--paper);
+      padding: 72px 40px;
+    }
+
+    .split-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 0;
+      margin-top: 48px;
+      border: 2px solid var(--ink);
+    }
+
+    .split-col {
+      padding: 40px 36px;
+    }
+
+    .split-col:first-child {
+      border-right: 2px solid var(--ink);
+    }
+
+    .split-col-label {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 36px;
+      letter-spacing: 0.02em;
+      margin-bottom: 24px;
+      padding-bottom: 16px;
+      border-bottom: 2px solid var(--rule);
+    }
+
+    .split-col:last-child .split-col-label {
+      color: var(--accent);
+    }
+
+    .split-item {
+      padding: 12px 0;
+      border-bottom: 1px solid var(--rule);
+      font-size: 14.5px;
+      line-height: 1.6;
+    }
+
+    .split-item strong {
+      display: block;
+      font-weight: 600;
+      font-size: 12px;
+      font-family: 'IBM Plex Mono', monospace;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--mid);
+      margin-bottom: 3px;
+    }
+
+    /* ---- CLOSING ---- */
+    .closing {
+      background: var(--accent);
+      padding: 80px 40px;
+      text-align: center;
+    }
+
+    .closing h2 {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: clamp(42px, 7vw, 80px);
+      letter-spacing: 0.02em;
+      color: white;
+      margin-bottom: 20px;
+      line-height: 1;
+    }
+
+    .closing p {
+      font-size: 18px;
+      color: rgba(255,255,255,0.85);
+      max-width: 600px;
+      margin: 0 auto 16px;
+      line-height: 1.7;
+    }
+
+    /* ---- FOOTER ---- */
+    footer {
+      background: var(--ink);
+      padding: 32px 40px;
+      text-align: center;
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 11px;
+      letter-spacing: 0.1em;
+      color: rgba(245,240,232,0.3);
+    }
+
+    /* ---- ANIMATE ---- */
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(24px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .hero-title, .hero-subtitle, .hero-meta {
+      animation: fadeUp 0.7s ease both;
+    }
+    .hero-subtitle { animation-delay: 0.15s; }
+    .hero-meta { animation-delay: 0.25s; }
+
+    @media (max-width: 640px) {
+      .split-grid { grid-template-columns: 1fr; }
+      .split-col:first-child { border-right: none; border-bottom: 2px solid var(--ink); }
+      .section, .horizons-section, .split-section, .pull-quote, .closing { padding: 48px 24px; }
+      .hero { padding: 56px 24px 48px; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- HERO -->
+  <header class="hero">
+    <div class="container">
+      <div class="eyebrow">Engineering Leadership · March 2026</div>
+      <h1 class="hero-title">
+        A Software Engineer's
+        <span>Guide to the</span>
+        Apocalypse
+      </h1>
+      <p class="hero-subtitle">
+        A map of the changes coming for everyone who builds software for a living.
+      </p>
+      <div class="hero-meta">
+        <span>10 MIN READ</span>
+        <span>AI · ENGINEERING · FUTURE OF WORK</span>
+        <span>BY BRIAN BUNKER &amp; CLAUDE SONNET 4.6</span>
+      </div>
+    </div>
+  </header>
+
+  <!-- INTRO -->
+  <section class="section">
+    <div class="container">
+      <div class="section-label">The Stakes</div>
+      <h2>The Rate of Change Is the Real Threat</h2>
+      <p>
+        There is a genre of writing about AI that has been proliferating lately, and most of it is trying to scare you. Matt Shumer's essay <em>Something Big Is Happening</em> — viewed more than 80 million times since its publication in February — argues that the gap between what AI can do today and what the public believes it can do has become enormous and dangerous, and that the people who work with these tools daily know something that most people don't yet. He's right about that. Citrini Research's thought exercise <em>The 2028 Global Intelligence Crisis</em> takes the fear further, modeling a scenario in which AI-driven white-collar displacement spirals into a structural economic crisis — Ghost GDP, mortgage defaults in prime zip codes, a feedback loop with no natural brake.
+      </p>
+      <p>
+        These are not fringe arguments. They are being made by serious people with serious data, and they deserve to be taken seriously. The title of this post borrows from that same atmosphere of urgency. The apocalypse is in the air.
+      </p>
+      <p>
+        But this post is not that kind of writing. The alarm has been sounded, loudly and well, by others. What's been harder to find is a map — something that describes where we actually are, names the horizons ahead with some specificity, and gives the people doing this work a way to think about what it asks of them at each stage. Fear is not a strategy. What follows is an attempt at one.
+      </p>
+      <p>
+        There is a normalization function built into how AI capabilities spread — a catch-up mechanism that kicks in once the tools reach a certain level of maturity and price. Organizations that moved slowly will get another chance, eventually. But you have to survive long enough to take it. When the gap between you and a competitor who embraced this earlier starts to widen, the short-term economic punishment is real. The question worth sitting with isn't whether the change is coming. It's whether you understand it clearly enough to move through it well.
+      </p>
+    </div>
+  </section>
+
+  <!-- HORIZONS -->
+  <section class="horizons-section">
+    <div class="container">
+      <div class="section-label">The Framework</div>
+      <h2>Six Horizons of AI-Augmented Development</h2>
+      <p>
+        When I try to make sense of what's happened and what's coming, I find it helps to think in horizons rather than timelines. A horizon isn't a date on a calendar. It's a meaningful shift in what's possible — one that changes not just the tools available to you, but what it means to do the job.
+      </p>
+      <p>
+        I count six of them. We're standing in the middle of Horizon 3. Everything behind us is history. Everything ahead is trajectory, and the view from here is enough to make the next few horizons feel uncomfortably close.
+
+      <div class="horizons-grid">
+
+        <div class="horizon-card">
+          <div class="horizon-num">Horizon 1 · Past</div>
+          <div class="horizon-title">Augmented Autocomplete</div>
+          <ul class="horizon-tasks">
+            <li>Code completion & snippet generation</li>
+            <li>Basic script generation for one-off tasks</li>
+            <li>Chat about code patterns (Stack Overflow, but conversational)</li>
+          </ul>
+        </div>
+
+        <div class="horizon-card">
+          <div class="horizon-num">Horizon 2 · Recent Past</div>
+          <div class="horizon-title">The First Exoskeleton</div>
+          <ul class="horizon-tasks">
+            <li>Basic developer exoskeleton takes shape</li>
+            <li>Single-repo reasoning and code introspection</li>
+            <li>Basic implementation tasks with guidance</li>
+          </ul>
+        </div>
+
+        <div class="horizon-card current">
+          <div class="horizon-num">Horizon 3</div>
+          <div class="horizon-badge">← We Are Here</div>
+          <div class="horizon-title">Advanced Exoskeleton</div>
+          <ul class="horizon-tasks">
+            <li>Multi-repo reasoning and deep code understanding</li>
+            <li>Automated bug detection across the codebase</li>
+            <li>Guided automated bug fixes</li>
+            <li>Guided feature implementation</li>
+          </ul>
+        </div>
+
+        <div class="horizon-card future">
+          <div class="horizon-num">Horizon 4 · Near Future</div>
+          <div class="horizon-title">Autonomous Coding</div>
+          <ul class="horizon-tasks">
+            <li>Dev still operates required functions around software creation</li>
+            <li>Fully automated bug code fixes (no guidance needed)</li>
+            <li>Fully automated feature implementation</li>
+          </ul>
+        </div>
+
+        <div class="horizon-card future">
+          <div class="horizon-num">Horizon 5 · Further Out</div>
+          <div class="horizon-title">Autonomous SDLC</div>
+          <ul class="horizon-tasks">
+            <li>This one is a huge lift — the full software development lifecycle, orchestrated</li>
+            <li>Fully automated pre-code steps: requirements gathering, design, technical planning — with human gate checks</li>
+            <li>Fully automated post-code steps: QA, provisioning, deployment</li>
+          </ul>
+        </div>
+
+        <div class="horizon-card future" style="background:#e8e3db;">
+          <div class="horizon-num">Horizon 6 · Unknown</div>
+          <div class="horizon-title">?</div>
+          <p>We don't know yet. The honest answer. Anyone who tells you otherwise is selling something.</p>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- WORKSHOP VS FACTORY -->
+  <section class="split-section">
+    <div class="container">
+      <div class="section-label">The Analogy That Lands</div>
+      <h2>From Workshop to Factory</h2>
+      <p>
+        The shift from workshop to factory that defined the industrial revolution maps almost perfectly onto what's happening to software development now — not as a loose metaphor, but as an actual structural description of what's changing.
+      </p>
+      <p>
+        The workshop craftsman knew how to make the thing. Every product passed through his hands and carried the marks of his particular skill and knowledge. The factory worker who replaced him didn't need to know how to make the thing — he needed to know how to operate and maintain the machine that made it. Same intelligence. Same pride in craft. Entirely different domain of knowledge.
+      </p>
+      <p>
+        We have been a software workshop. One developer, one codebase, hands on every line. We are becoming a software factory. The question worth sitting with is: which part of the factory are you learning to operate?
+      </p>
+
+      <div class="split-grid">
+        <div class="split-col">
+          <div class="split-col-label">Workshop</div>
+          <div class="split-item">
+            <strong>Product</strong>
+            Every piece hand-crafted, unique
+          </div>
+          <div class="split-item">
+            <strong>Skilled Worker Knowledge</strong>
+            Deep domain expertise in how to make the product — the craft itself
+          </div>
+          <div class="split-item">
+            <strong>Throughput</strong>
+            Limited by individual human hours and attention
+          </div>
+          <div class="split-item">
+            <strong>Quality Control</strong>
+            The craftsperson is the quality control
+          </div>
+        </div>
+        <div class="split-col">
+          <div class="split-col-label">Factory</div>
+          <div class="split-item">
+            <strong>Product</strong>
+            Mass produced using machines; consistent, repeatable
+          </div>
+          <div class="split-item">
+            <strong>Skilled Worker Knowledge</strong>
+            How to operate and fix the machines that make the product
+          </div>
+          <div class="split-item">
+            <strong>Throughput</strong>
+            High capacity — machines extend human output dramatically
+          </div>
+          <div class="split-item">
+            <strong>Quality Control</strong>
+            Systems and gates, not individual vigilance
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ROLES SECTION -->
+  <section class="section">
+    <div class="container">
+      <div class="section-label">What This Means For Your Role</div>
+      <h2>The Operator and the Maintainer</h2>
+      <p>
+        In the factory, two roles become essential. The <em>operator</em> runs the machines — directing their output, making decisions about what gets made and how. The <em>maintainer</em> keeps the machines healthy — understanding them well enough to diagnose failures, make repairs, and know when something is behaving strangely. In the language we've started using, these map to the Software Delivery Operator and the Software Delivery Maintainer. SDO and SDM.
+      </p>
+      <p>
+        Neither is lesser. The factory breaks without both. What I want to be careful about is the assumption that these new roles somehow flatten everything — that experience stops mattering, that the years you've put in learning systems thinking and developing judgment suddenly carry no weight. Trust, scope, depth of understanding — these still accumulate. A senior SDM who has spent years debugging complex systems is not the same as someone who just started. The tools changed. The need for hard-won judgment didn't.
+      </p>
+      <p>
+        What shifts is <em>where you apply it</em>. A few horizons from now, the senior engineer won't be debugging the code. She'll be debugging the system that writes code. That is not a lesser problem. It may be a harder one.
+      </p>
+      <p>
+        But here is the part that I think will be hardest for a lot of us to sit with: the SDO and SDM are not engineering roles. They are not QA roles, or design roles, or ops roles. They are all of those things at once — or more precisely, they are something new that the old distinctions don't map onto cleanly anymore. The silos we've spent careers building and defending — engineering on one side, QA on another, design somewhere else entirely, ops in the corner trying to get everyone to care about reliability — those walls are coming down. Not because anyone decided to knock them down, but because the machine doesn't recognize them.
+      </p>
+      <p>
+        When AI can generate a feature, write the tests for it, flag the edge cases a designer would have caught, and prepare a deployment plan — the question of <em>whose job is that</em> starts to lose its meaning. What remains is the judgment to direct it, and the knowledge to maintain it. That judgment will need to span what used to be four or five different specialties.
+      </p>
+      <p>
+        I'll be honest: that's going to require some swallowed pride. The engineer who has long viewed QA as a downstream concern will need to genuinely absorb that tradition — not as a courtesy, but because the role demands it. The QA specialist who has felt condescended to by engineering for years will need to step onto that turf without bitterness and claim it. Design, ops, delivery — each tradition carries real knowledge that the others have historically undervalued. The factory ahead needs all of it in the same hands. Whether those hands can actually open that wide is the human problem at the center of this transition, and it's a harder one than any of the technical horizons.
+      </p>
+    </div>
+  </section>
+
+  <!-- UPSKILLING SECTION -->
+  <section class="section" style="background:#f9f5ef;">
+    <div class="container">
+      <div class="section-label">The Practical Part</div>
+      <h2>What To Actually Do About It</h2>
+      <p>
+        The question worth sitting with isn't whether these changes are coming — they are — but what to do before they arrive. A few things seem worth the investment now.
+      </p>
+      <p>
+        <strong>Think product first.</strong> Each horizon moves the meaningful layer of developer work closer to the question of <em>why</em> something is being built rather than <em>how</em>. If you've spent years with your head down in implementation — which is honorable, necessary work — now is a good time to lift it. Understanding the product deeply enough to make decisions about it, not just execute against a spec, will matter more with each passing horizon.
+      </p>
+      <p>
+        <strong>Reduce the jargon.</strong> Not because technical rigor doesn't matter — it does, deeply — but because the audience for your work will keep expanding as AI absorbs more of the implementation layer. The ability to speak plainly to a product manager, a business stakeholder, someone who doesn't think in systems — that's not a soft skill. It's an increasingly load-bearing one.
+      </p>
+      <p>
+        <strong>Learn to evaluate AI output, not just produce it.</strong> At this horizon and the ones ahead, one of the most valuable things you can do is develop the judgment to know when the machine is wrong. That's a different skill than knowing how to write code. It requires taste, pattern recognition, and enough domain depth to catch a plausible-sounding mistake. The developers who build that evaluative muscle early will have a meaningful edge over those who learn to trust the output uncritically.
+      </p>
+      <p>
+        <strong>Understand the full delivery pipeline.</strong> If the silos are collapsing, fluency with only your slice of the process becomes a liability. How does a requirement become a ticket? How does a ticket become code, tested and deployed and monitored in production? Most specialists have a vivid picture of one part of that chain and a vague sense of the rest. That vagueness is fine until it isn't. Closing those gaps — even partially — is one of the most practical investments you can make right now.
+      </p>
+      <p>
+        <strong>Start building tools that shrink the distance between product and deployment.</strong> This is where I think the most interesting work is happening right now, and where engineers can create disproportionate value. Recently I built a Slack app with a simple slash command — <code>/bug-report</code> — that allows a product person to intake a bug directly from where they already work. The system refines it into a fully fleshed-out Jira ticket and reviews the affected code, all without involving an engineer in the intake loop. The natural extension is the system drafting a suggested fix and opening a PR for review. That's one small tool, but it collapses what used to be a multi-step, multi-person, multi-day process into something closer to a single action. The gap between "a product person noticed something" and "the codebase has a proposed fix" shrinks from days to minutes. Finding those gaps in your own organization and building toward them — that is the SDO/SDM work before the tools do it for you.
+      </p>
+      <p>
+        <strong>Protect your institutional knowledge.</strong> The history of a codebase lives in people — why a system was built the way it was, which decisions were made under pressure and regretted later, which parts are held together with good intentions and old assumptions. As the mechanical work of software development gets automated away, that contextual knowledge becomes more valuable, not less. It can't be generated. It can only be accumulated, recorded, and passed on. The developers who have it, and who take seriously the responsibility of preserving it, will find themselves more needed at each horizon, not less.
+      </p>
+    </div>
+  </section>
+
+  <!-- CLOSING -->
+  <div class="closing">
+    <h2>This Is Not the End.<br>It's the Retooling.</h2>
+    <p>
+      What this moment is disclosing is something that was always true about software development: the writing of code was never really the point. The judgment, the communication, the understanding of systems and people and problems — that was always the job. We just spent a long time in a world where writing the code was also required.
+    </p>
+    <p>
+      The workshop craftsman who understood his trade deeply didn't become useless when the factory arrived. He became essential to running it — if he was willing to learn what running it required. The developers who come through this well won't be the ones who resisted the change or the ones who surrendered to it uncritically. They'll be the ones who understood what was actually being asked of them at each horizon, and showed up for it.
+    </p>
+  </div>
+
+  <footer>
+    A Software Engineer's Guide to the Apocalypse &nbsp;·&nbsp; March 2026
+  </footer>
+
+</body>
+</html>
