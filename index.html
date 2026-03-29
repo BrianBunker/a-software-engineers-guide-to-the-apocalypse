@@ -454,61 +454,6 @@ p:last-child { margin-bottom: 0; }
   line-height: 1.7;
 }
 
-/* ---- SUGGESTED READING ---- */
-.reading-section {
-  background: var(--paper);
-  padding: 72px 40px;
-  border-top: 1px solid var(--rule);
-}
-
-.reading-list {
-  margin-top: 40px;
-  display: flex;
-  flex-direction: column;
-  gap: 0;
-  max-width: 680px;
-}
-
-.reading-item {
-  padding: 24px 0;
-  border-bottom: 1px solid var(--rule);
-}
-
-.reading-item:first-child {
-  border-top: 1px solid var(--rule);
-}
-
-.reading-item a {
-  font-family: 'DM Serif Display', serif;
-  font-size: 18px;
-  color: var(--ink);
-  text-decoration: none;
-  display: block;
-  margin-bottom: 6px;
-  transition: color 0.15s;
-}
-
-.reading-item a:hover {
-  color: var(--accent);
-}
-
-.reading-source {
-  font-family: 'IBM Plex Mono', monospace;
-  font-size: 10px;
-  font-weight: 600;
-  letter-spacing: 0.15em;
-  text-transform: uppercase;
-  color: var(--accent);
-  margin-bottom: 8px;
-}
-
-.reading-item p {
-  font-size: 14.5px;
-  color: var(--mid);
-  line-height: 1.65;
-  margin-bottom: 0;
-}
-
 footer {
   background: var(--ink);
   padding: 32px 40px;
@@ -570,7 +515,7 @@ footer {
     <div class="section-label">The Stakes</div>
     <h2>The Rate of Change Is the Real Threat</h2>
     <p>
-      There is a genre of writing about AI that has been proliferating lately, and most of it is trying to scare you. Matt Shumer's essay <em>Something Big Is Happening</em> — viewed more than 80 million times since its publication in February — argues that the gap between what AI can do today and what the public believes it can do has become enormous and dangerous, and that the people who work with these tools daily know something that most people don't yet. He's right about that. Citrini Research's thought exercise <em>The 2028 Global Intelligence Crisis</em> takes the fear further, modeling a scenario in which AI-driven white-collar displacement spirals into a structural economic crisis — Ghost GDP, mortgage defaults in prime zip codes, a feedback loop with no natural brake.
+      There is a genre of writing about AI that has been proliferating lately, and most of it is trying to scare you. Matt Shumer's essay <a href="https://www.linkedin.com/pulse/something-big-happening-matt-shumer-so5he" target="_blank" style="color:inherit;border-bottom:1px solid currentColor;text-decoration:none;"><em>Something Big Is Happening</em></a> — viewed more than 80 million times since its publication in February — argues that the gap between what AI can do today and what the public believes it can do has become enormous and dangerous, and that the people who work with these tools daily know something that most people don't yet. He's right about that. Citrini Research's thought exercise <a href="https://www.citriniresearch.com/p/2028gic" target="_blank" style="color:inherit;border-bottom:1px solid currentColor;text-decoration:none;"><em>The 2028 Global Intelligence Crisis</em></a> takes the fear further, modeling a scenario in which AI-driven white-collar displacement spirals into a structural economic crisis — Ghost GDP, mortgage defaults in prime zip codes, a feedback loop with no natural brake.
     </p>
     <p>
       These are not fringe arguments. They are being made by serious people with serious data, and they deserve to be taken seriously. The title of this post borrows from that same atmosphere of urgency. The apocalypse is in the air.
@@ -578,6 +523,16 @@ footer {
     <p>
       But this post is not that kind of writing. The alarm has been sounded, loudly and well, by others. What's been harder to find is a map — something that describes where we actually are, names the horizons ahead with some specificity, and gives the people doing this work a way to think about what it asks of them at each stage. Fear is not a strategy. What follows is an attempt at one.
     </p>
+
+    <!-- CHAPTER CALLOUT -->
+    <a href="the-incentive-stack/" class="chapter-callout">
+      <div class="chapter-callout-badge">Go Deeper</div>
+      <div class="chapter-callout-body">
+        <div class="chapter-callout-title">The Incentive Stack</div>
+        <p class="chapter-callout-desc">The shift isn't driven by enthusiasm — it's driven by competition forcing companies, and companies forcing individuals. A clear-eyed look at who is applying the pressure, why, and what your company's governance structure means for how it arrives at your desk.</p>
+      </div>
+      <div class="chapter-callout-arrow">→</div>
+    </a>
   </div>
 </section>
 
@@ -726,6 +681,16 @@ footer {
     <p>
       When AI can generate a feature, write the tests for it, flag the edge cases a designer would have caught, and prepare a deployment plan — the question of <em>whose job is that</em> starts to lose its meaning. What remains is the judgment to direct it, and the knowledge to maintain it. That judgment will need to span what used to be four or five different specialties.
     </p>
+    <!-- CHAPTER CALLOUT -->
+    <a href="the-operator-and-the-maintainer/" class="chapter-callout">
+      <div class="chapter-callout-badge">Go Deeper</div>
+      <div class="chapter-callout-body">
+        <div class="chapter-callout-title">The Operator and the Maintainer</div>
+        <p class="chapter-callout-desc">What each role actually demands — and where each one traps you. The SDO runs at business speed as a generalist embedded near the product. The SDM maintains specialist depth on a pipeline that, in most cases, should be bought rather than built.</p>
+      </div>
+      <div class="chapter-callout-arrow">→</div>
+    </a>
+
     <p>
       I'll be honest: that's going to require some swallowed pride. The engineer who has long viewed QA as a downstream concern will need to genuinely absorb that tradition — not as a courtesy, but because the role demands it. The QA specialist who has felt condescended to by engineering for years will need to step onto that turf without bitterness and claim it. Design, ops, delivery — each tradition carries real knowledge that the others have historically undervalued. The factory ahead needs all of it in the same hands. Whether those hands can actually open that wide is the human problem at the center of this transition, and it's a harder one than any of the technical horizons.
     </p>
@@ -782,36 +747,6 @@ footer {
     The workshop craftsman who understood his trade deeply didn't become useless when the factory arrived. He became essential to running it — if he was willing to learn what running it required. The developers who come through this well won't be the ones who resisted the change or the ones who surrendered to it uncritically. They'll be the ones who understood what was actually being asked of them at each horizon, and showed up for it.
   </p>
 </div>
-
-<!-- SUGGESTED READING -->
-<section class="reading-section">
-  <div class="container">
-    <div class="section-label">Suggested Reading</div>
-    <h2>If This Post Found You</h2>
-    <div class="reading-list">
-      <div class="reading-item">
-        <div class="reading-source">Matt Shumer · LinkedIn</div>
-        <a href="https://www.linkedin.com/pulse/something-big-happening-matt-shumer-so5he" target="_blank">Something Big Is Happening</a>
-        <p>The viral essay arguing that the gap between what AI can do today and what most people believe it can do has become dangerously wide — and that those working with these tools daily know something the rest of the world doesn't yet.</p>
-      </div>
-      <div class="reading-item">
-        <div class="reading-source">Citrini Research · Substack</div>
-        <a href="https://www.citriniresearch.com/p/2028gic" target="_blank">The 2028 Global Intelligence Crisis</a>
-        <p>A macro thought exercise written as a memo from June 2028, modeling a scenario in which AI-driven white-collar displacement spirals into a structural economic crisis — a feedback loop of layoffs, margin pressure, and collapsing consumer demand that has no natural brake.</p>
-      </div>
-      <div class="reading-item">
-        <div class="reading-source">Steve Yegge · Medium</div>
-        <a href="https://steve-yegge.medium.com/the-ai-vampire-eda6e4f07163" target="_blank">The AI Vampire</a>
-        <p>A candid warning from a veteran engineer about the hidden cost of 10x AI productivity: the value flows to employers while developers burn out, and the culture of early adopters shouting from the rooftops is setting expectations nobody can sustainably meet.</p>
-      </div>
-      <div class="reading-item">
-        <div class="reading-source">Harrison Chase · X</div>
-        <a href="https://x.com/hwchase17/status/2031051115169808685" target="_blank">On What Agents Actually Do in Production</a>
-        <p>The LangChain founder on what it really means to deploy AI agents at scale — and why you don't fully understand what your agent will do until it's already in front of real users.</p>
-      </div>
-    </div>
-  </div>
-</section>
 
 <footer>
   A Software Engineer's Guide to the Apocalypse &nbsp;·&nbsp; March 2026
