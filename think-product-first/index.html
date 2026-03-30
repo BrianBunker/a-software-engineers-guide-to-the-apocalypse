@@ -1,0 +1,400 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Think Product First · A Software Engineer's Guide to the Apocalypse</title>
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Serif+Display:ital@0;1&family=IBM+Plex+Mono:wght@400;600&family=Instrument+Sans:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --ink: #0f0e0c;
+      --paper: #f5f0e8;
+      --accent: #c8390a;
+      --mid: #6b6560;
+      --light: #e8e2d8;
+      --rule: #d4cec4;
+    }
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    body {
+      background: var(--ink);
+      font-family: 'Instrument Sans', sans-serif;
+      color: var(--ink);
+      min-height: 100vh;
+    }
+
+    body::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E");
+      pointer-events: none;
+      z-index: 100;
+      opacity: 0.4;
+    }
+
+    /* ---- NAV BREADCRUMB ---- */
+    .breadcrumb {
+      background: var(--ink);
+      padding: 16px 40px;
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 10px;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: rgba(245,240,232,0.35);
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .breadcrumb a {
+      color: rgba(245,240,232,0.5);
+      text-decoration: none;
+      transition: color 0.15s;
+    }
+    .breadcrumb a:hover { color: var(--accent); }
+    .breadcrumb span { color: rgba(245,240,232,0.2); }
+
+    /* ---- HERO ---- */
+    .hero {
+      background: var(--paper);
+      padding: 80px 40px 60px;
+      position: relative;
+      overflow: hidden;
+      border-bottom: 3px solid var(--ink);
+    }
+    .hero::after {
+      content: '';
+      position: absolute;
+      bottom: -2px;
+      left: 0; right: 0;
+      height: 6px;
+      background: repeating-linear-gradient(90deg, var(--accent) 0, var(--accent) 20px, transparent 20px, transparent 28px);
+    }
+
+    .eyebrow {
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 20px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+    .eyebrow::before {
+      content: '';
+      display: block;
+      width: 32px;
+      height: 2px;
+      background: var(--accent);
+    }
+
+    .hero-title {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: clamp(56px, 10vw, 112px);
+      line-height: 0.92;
+      letter-spacing: -0.01em;
+      color: var(--ink);
+      max-width: 900px;
+      margin-bottom: 12px;
+    }
+    .hero-title span { color: var(--accent); display: block; }
+
+    .hero-subtitle {
+      font-family: 'DM Serif Display', serif;
+      font-style: italic;
+      font-size: 22px;
+      color: var(--mid);
+      margin-top: 24px;
+      max-width: 640px;
+      line-height: 1.5;
+    }
+
+    .hero-meta {
+      margin-top: 40px;
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 11px;
+      color: var(--mid);
+      letter-spacing: 0.1em;
+      display: flex;
+      gap: 32px;
+      flex-wrap: wrap;
+    }
+
+    /* ---- LAYOUT ---- */
+    .container {
+      max-width: 860px;
+      margin: 0 auto;
+      padding: 0 40px;
+    }
+
+    /* ---- SECTIONS ---- */
+    .section {
+      background: var(--paper);
+      padding: 72px 40px;
+      border-bottom: 1px solid var(--rule);
+    }
+
+    .section-label {
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 10px;
+      font-weight: 600;
+      letter-spacing: 0.25em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 28px;
+    }
+
+    h2 {
+      font-family: 'DM Serif Display', serif;
+      font-size: clamp(30px, 4vw, 44px);
+      line-height: 1.15;
+      color: var(--ink);
+      margin-bottom: 28px;
+    }
+
+    p {
+      font-size: 17px;
+      line-height: 1.75;
+      color: #2a2724;
+      margin-bottom: 20px;
+      max-width: 680px;
+    }
+    p:last-child { margin-bottom: 0; }
+
+    em { font-style: italic; }
+    strong { font-weight: 600; }
+
+    /* ---- PULL QUOTE ---- */
+    .pull-quote {
+      background: var(--ink);
+      color: var(--paper);
+      padding: 72px 40px;
+      position: relative;
+      overflow: hidden;
+    }
+    .pull-quote::before {
+      content: '"';
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 280px;
+      line-height: 1;
+      color: rgba(255,255,255,0.05);
+      position: absolute;
+      top: -20px; left: 20px;
+      pointer-events: none;
+    }
+    .pull-quote blockquote {
+      font-family: 'DM Serif Display', serif;
+      font-size: clamp(24px, 3.5vw, 38px);
+      line-height: 1.3;
+      color: var(--paper);
+      max-width: 740px;
+      margin: 0 auto;
+      position: relative;
+      z-index: 1;
+    }
+    .pull-quote cite {
+      display: block;
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 11px;
+      font-style: normal;
+      letter-spacing: 0.15em;
+      color: var(--accent);
+      margin-top: 24px;
+    }
+
+    /* ---- CLOSING ---- */
+    .closing {
+      background: var(--accent);
+      padding: 80px 40px;
+      text-align: center;
+    }
+    .closing h2 {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: clamp(42px, 7vw, 80px);
+      letter-spacing: 0.02em;
+      color: white;
+      margin-bottom: 20px;
+      line-height: 1;
+    }
+    .closing p {
+      font-size: 18px;
+      color: rgba(255,255,255,0.85);
+      max-width: 600px;
+      margin: 0 auto 16px;
+      line-height: 1.7;
+    }
+
+    footer {
+      background: var(--ink);
+      padding: 32px 40px;
+      text-align: center;
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 11px;
+      letter-spacing: 0.1em;
+      color: rgba(245,240,232,0.3);
+    }
+    footer a {
+      color: rgba(245,240,232,0.4);
+      text-decoration: none;
+    }
+    footer a:hover { color: var(--accent); }
+
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(24px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    .hero-title { animation: fadeUp 0.7s ease both; }
+    .hero-subtitle { animation: fadeUp 0.7s ease 0.15s both; }
+    .hero-meta { animation: fadeUp 0.7s ease 0.25s both; }
+
+    @media (max-width: 640px) {
+      .section, .pull-quote, .closing { padding: 48px 24px; }
+      .hero { padding: 56px 24px 48px; }
+      .breadcrumb { padding: 16px 24px; }
+      .container { padding: 0 24px; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- BREADCRUMB -->
+  <nav class="breadcrumb">
+    <a href="../">A Software Engineer's Guide to the Apocalypse</a>
+    <span>/</span>
+    <span>Think Product First</span>
+  </nav>
+
+  <!-- HERO -->
+  <header class="hero">
+    <div class="container">
+      <div class="eyebrow">The Operator's Mandate · March 2026</div>
+      <h1 class="hero-title">
+        Think
+        <span>Product</span>
+        First
+      </h1>
+      <p class="hero-subtitle">
+        Product fluency was a management skill. The SDO doesn't have that excuse anymore.
+      </p>
+      <div class="hero-meta">
+        <span>8 MIN READ</span>
+        <span>PRODUCT · ENGINEERING · STRATEGY</span>
+        <span>BY BRIAN BUNKER &amp; CLAUDE SONNET 4.6</span>
+      </div>
+    </div>
+  </header>
+
+  <!-- SECTION 1: THE OLD MODEL -->
+  <section class="section" style="background:var(--paper);">
+    <div class="container">
+      <div class="section-label">The Old Model</div>
+      <h2>The Gate That's Disappearing</h2>
+      <p>
+        For most of the history of software engineering, there was a clean separation between the people who understood the business and the people who built the software. Engineering managers lived on the boundary. They translated. A product manager would arrive with a problem — a metric declining, a customer complaint, a competitive threat — and the EM would convert it into something the team could act on: a ticket, a sprint goal, a technical specification. Engineers could stay in the implementation layer and do excellent work there. Understanding <em>why</em> something was being built was someone else's job.
+      </p>
+      <p>
+        That arrangement made sense when translation work was genuinely difficult, when the pace of development meant there was always a queue, and when specialization was the most efficient use of everyone's time. The EM processed the queue. Engineers worked from it. Product fluency lived at the boundary, not inside it, and the system functioned because the boundary was stable.
+      </p>
+      <p>
+        It isn't anymore.
+      </p>
+    </div>
+  </section>
+
+  <!-- SECTION 2: THE COLLAPSING BUFFER -->
+  <section class="section" style="background:#f9f5ef;">
+    <div class="container">
+      <div class="section-label">The Collapsing Buffer</div>
+      <h2>The SDO Doesn't Have a Queue</h2>
+      <p>
+        The SDO doesn't have a queue in that sense. The SDO has a conversation. AI-assisted development has compressed the time between "someone understands what needs to be built" and "the thing is built" to the point where the translation layer — the EM, the grooming session, the carefully written ticket — is becoming a bottleneck rather than a guardrail. The SDO operates closer to the business than any individual contributor has before. That proximity has a cost: you have to understand what you're near.
+      </p>
+      <p>
+        An SDO who lacks product fluency is just a faster implementer. They can execute against a spec at speed, but they can't catch a bad spec before it ships. They can't prioritize competing work using business criteria. They can't push back on a feature because they know the customer well enough to know it won't land. They can do the job technically and miss it entirely.
+      </p>
+      <p>
+        This is the mandate the EM used to hold. It hasn't gone away — it's moved. The SDO who treats it as someone else's responsibility is operating on an assumption that stopped being true at the last horizon, and will be less true at every horizon after it.
+      </p>
+    </div>
+  </section>
+
+  <!-- SECTION 3: THE COMPONENTS -->
+  <section class="section" style="background:var(--paper);">
+    <div class="container">
+      <div class="section-label">The Components</div>
+      <h2>What Product Fluency Actually Requires</h2>
+      <p>
+        Product fluency isn't a single skill. It's a cluster of capabilities that the EM traditionally held and that the SDO now needs to develop. None of them are mysterious. All of them require deliberate attention.
+      </p>
+      <p>
+        <strong>Understanding the metrics your work moves.</strong> Every piece of engineering work connects to something the business cares about — conversion, retention, latency, error rate, revenue per user. Most engineers know the technical metrics. Product fluency means knowing the business metrics and being able to trace a line from a technical decision to a business outcome. Not perfectly — the line is rarely clean — but well enough to have the conversation.
+      </p>
+      <p>
+        <strong>Being in the room where product decisions happen.</strong> The SDO needs access to upstream context — the conversations where priorities get set, where customer feedback gets interpreted, where competing bets get weighed. This isn't about attending more meetings. It's about understanding the logic of the decisions before they arrive as requirements. When you know <em>why</em> a decision was made, you can make better decisions in its service — and you can flag when an implementation path is in tension with the intent.
+      </p>
+      <p>
+        <strong>Prioritizing across competing work using business criteria.</strong> Purely technical prioritization — pay down the debt, fix the fragile thing, build the abstraction that would make everything cleaner — is not wrong. It's incomplete. The SDO has to be able to weight technical priorities against business ones, and sometimes lose that argument gracefully, and sometimes win it because they can make the case in language the business understands.
+      </p>
+      <p>
+        <strong>Understanding the customer well enough to push back.</strong> This is the highest-order version of product fluency and the rarest. It means having enough firsthand knowledge of how customers use the product — what they're actually trying to do, where they get frustrated, what workarounds they've built — that you can evaluate a proposed feature from their perspective, not just from an implementation perspective. When an SDO can say "I don't think this is what they need" with credibility, they've become something more than an implementer.
+      </p>
+    </div>
+  </section>
+
+  <!-- PULL QUOTE -->
+  <div class="pull-quote">
+    <div class="container">
+      <blockquote>
+        The EM used to be the translator. The SDO has to learn the language.
+        <cite>— The mandate, plainly stated</cite>
+      </blockquote>
+    </div>
+  </div>
+
+  <!-- SECTION 4: THE PRACTICAL PART -->
+  <section class="section" style="background:#f9f5ef;">
+    <div class="container">
+      <div class="section-label">The Practical Part</div>
+      <h2>How to Actually Build It</h2>
+      <p>
+        Product fluency doesn't come from reading a book. It comes from proximity and repetition — from being in more of the right conversations and paying attention while you're there. A few investments compound faster than others.
+      </p>
+      <p>
+        <strong>Get upstream of the ticket.</strong> Whenever you can, be part of the conversation before the requirement is written. Ask why. Ask what problem this is solving. Ask what success looks like. This isn't about slowing things down — it's about entering the work with better information than the spec alone provides.
+      </p>
+      <p>
+        <strong>Learn the metrics your team is measured on.</strong> If you don't know the two or three numbers your product leadership cares most about, find out. Then start noticing when your work touches them. Make it a habit to think about what you're building in terms of those numbers, even when the conversation doesn't require it.
+      </p>
+      <p>
+        <strong>Talk to people in product as peers, not translators.</strong> The EM used to be the intermediary. As an SDO you have to build the relationships directly — with product managers and designers, understanding how they think about problems, showing up to those conversations with genuine curiosity rather than waiting to be handed a spec.
+      </p>
+      <p>
+        <strong>Use customer context when you have it.</strong> Support tickets, user research, NPS comments, sales call recordings — wherever your organization surfaces what customers actually say, read it. Not systematically, just enough to keep your mental model of the customer honest and current.
+      </p>
+      <p>
+        <strong>When you disagree with a direction, say so in business terms.</strong> Technical objections are easy to override. Business objections require engagement. "This will be hard to build" is easy to dismiss. "I don't think this will move the metric we're trying to move, and here's why" is harder to ignore — and it's the kind of contribution that changes what the SDO is understood to be.
+      </p>
+    </div>
+  </section>
+
+  <!-- CLOSING -->
+  <div class="closing">
+    <h2>The Mandate Moved.</h2>
+    <p>
+      The SDO who understands the product isn't just a better implementer. They're a different kind of contributor — one who can shape what gets built, not just how quickly. That's what the role is now asking for.
+    </p>
+    <p>
+      The tooling will keep accelerating. The question is whether the person holding it understands the business well enough to point it in the right direction.
+    </p>
+  </div>
+
+  <footer>
+    <a href="../">A Software Engineer's Guide to the Apocalypse</a> &nbsp;·&nbsp; Think Product First &nbsp;·&nbsp; March 2026
+  </footer>
+
+</body>
+</html>
