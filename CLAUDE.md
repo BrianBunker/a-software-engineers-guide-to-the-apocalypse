@@ -30,7 +30,7 @@ Two articles are published. The structure, design system, and folder conventions
 
 ### Content first
 
-Drafting an article means writing the full content — sections, pull quotes, examples, suggested reading — before touching HTML. Get the argument right before thinking about layout.
+Drafting an article means writing the full content — sections, pull quotes, examples — before touching HTML. Get the argument right before thinking about layout.
 
 Each article should have:
 - A clear single thesis stated early
@@ -38,7 +38,6 @@ Each article should have:
 - One or two pull quotes — short claims, not summaries
 - A "The Practical Part" section with 4–6 bolded action items
 - A closing statement (goes in the `.closing` red CTA section)
-- 3–5 suggested reading items with source attribution
 
 ### Structure
 
@@ -50,7 +49,6 @@ hero (with eyebrow, h1 with accent span, subtitle, meta)
 content sections (alternating paper/slightly-darker backgrounds)
 pull quote(s) (dark background, large serif quote)
 closing CTA (accent red background)
-suggested reading section
 footer
 ```
 

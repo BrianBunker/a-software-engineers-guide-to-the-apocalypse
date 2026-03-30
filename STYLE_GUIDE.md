@@ -472,7 +472,7 @@ Used in article two to show the same message rewritten across dialects. Bordered
 
 ### Closing CTA section
 
-Accent red background, centered, large Bebas Neue heading, white body text. Always the last section before suggested reading.
+Accent red background, centered, large Bebas Neue heading, white body text. Always the last section.
 
 ```css
 .closing {
@@ -494,54 +494,6 @@ Accent red background, centered, large Bebas Neue heading, white body text. Alwa
   max-width: 600px;
   margin: 0 auto 16px;
   line-height: 1.7;
-}
-```
-
----
-
-### Suggested reading list
-
-Always the final content section before the footer. Vertical list of linked reading items with source labels.
-
-```css
-.reading-section {
-  background: var(--paper);
-  padding: 72px 40px;
-  border-top: 1px solid var(--rule);
-}
-.reading-list {
-  margin-top: 40px;
-  display: flex;
-  flex-direction: column;
-  max-width: 680px;
-}
-.reading-item {
-  padding: 24px 0;
-  border-bottom: 1px solid var(--rule);
-}
-.reading-item:first-child { border-top: 1px solid var(--rule); }
-.reading-source {
-  font-family: 'IBM Plex Mono', monospace;
-  font-size: 10px;
-  font-weight: 600;
-  letter-spacing: 0.15em;
-  text-transform: uppercase;
-  color: var(--accent);
-  margin-bottom: 8px;
-}
-.reading-item a {
-  font-family: 'DM Serif Display', serif;
-  font-size: 18px;
-  color: var(--ink);
-  text-decoration: none;
-  display: block;
-  margin-bottom: 6px;
-}
-.reading-item a:hover { color: var(--accent); }
-.reading-item p {
-  font-size: 14.5px;
-  color: var(--mid);
-  line-height: 1.65;
 }
 ```
 
